@@ -1,5 +1,7 @@
-const commonValidation = require('./commonValidation');
+const commonValidation = require('./common');
+const userValidation = require('./user');
 
 module.exports = {
-    commonValidation
+    commonValidation,
+    userValidation,
 };
