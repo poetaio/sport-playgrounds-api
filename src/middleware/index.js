@@ -5,5 +5,5 @@ const validationMiddleware = require('./validationMiddleware');
 module.exports = {
     errorHandlingMiddleware,
     authMiddleware,
-    validationMiddleware
+    validationMiddleware,
 };

@@ -1,12 +1,13 @@
 const jwt = require('jsonwebtoken');
 const { httpStatusCodes } = require("../utils");
-const {UnauthorizedError} = require("../utils/errors");
+const {AuthError} = require("../utils/errors");
 const { validationResult } = require('express-validator');
 
-// authentication middleware
+/**
+ * Auth middleware, checks signature and retrieves info from token
+ */
 module.exports = (req, res, next) => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty())
         return res.status(httpStatusCodes.UNAUTHORIZED).json(errors);
 
@@ -16,6 +17,6 @@ module.exports = (req, res, next) => {
         req.user = jwt.verify(token, process.env.JWT_SECRET);
         next();
     } catch(e) {
-        return res.status(httpStatusCodes.UNAUTHORIZED).json({ errors: [new UnauthorizedError(e.message)] });
+        next([new AuthError(e.message)]);
     }
 };
