@@ -5,7 +5,6 @@ const cors = require('cors');
 const { errorHandlingMiddleware } = require('./middleware');
 const apiRouter = require('./routes');
 const sequelize = require('./models/sequelize');
-const { httpStatusCodes } = require('./utils');
 require("./models");
 
 const PORT = process.env.PORT;
@@ -17,11 +16,12 @@ app.use(cors());
 
 app.use('/api', apiRouter);
 app.use(errorHandlingMiddleware);
-app.use('*', (req, res) => { res.status(httpStatusCodes.NOT_FOUND).end() });
+// app.use('*', (req, res) => { res.status(httpStatusCodes.NOT_FOUND).end() });
 
 const run = async () => {
     try {
         await sequelize.authenticate();
+        // await sequelize.sync({ force: true });
         await sequelize.sync();
 
         app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));

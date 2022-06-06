@@ -4,8 +4,12 @@ module.exports = (sequelize, DataTypes) => sequelize.define('sport_playground', 
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
     },
-    location: {
-        type: 'Point',
+    lat: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    lng: {
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
 });
